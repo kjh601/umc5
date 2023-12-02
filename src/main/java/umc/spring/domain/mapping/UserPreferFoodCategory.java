@@ -1,9 +1,6 @@
 package umc.spring.domain.mapping;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import umc.spring.domain.FoodCategory;
 import umc.spring.domain.User;
 
@@ -11,6 +8,8 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class UserPreferFoodCategory {
@@ -26,4 +25,15 @@ public class UserPreferFoodCategory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private FoodCategory foodCategory;
+
+    public void setUser(User user) {
+        if(this.user != null)
+            user.getUserPreferFoodCategoryList().remove(this);
+        this.user = user;
+        user.getUserPreferFoodCategoryList().add(this);
+    }
+
+    public void setFoodCategory(FoodCategory foodCategory) {
+        this.foodCategory = foodCategory;
+    }
 }

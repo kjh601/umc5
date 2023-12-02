@@ -1,4 +1,4 @@
-package umc.spring.apiPayload.code;
+package umc.spring.base.apiPayload.code;
 
 public interface BaseCode {
     public ReasonDTO getReason();
