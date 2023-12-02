@@ -1,9 +1,7 @@
 package umc.spring.converter;
 
 import org.locationtech.jts.geom.Point;
-import umc.spring.domain.FoodCategory;
-import umc.spring.domain.Store;
-import umc.spring.domain.ZipCode;
+import umc.spring.domain.*;
 import umc.spring.web.dto.StoreRequestDTO;
 import umc.spring.web.dto.StoreResponseDTO;
 
@@ -25,6 +23,22 @@ public class StoreConverter {
         return StoreResponseDTO.JoinResultDTO.builder()
                 .storeId(store.getStoreId())
                 .createAt(store.getCreateAt())
+                .build();
+    }
+
+    public static Review toReview(StoreRequestDTO.ReviewDTO request, Store store, User user) {
+        return Review.builder()
+                .contents(request.getContents())
+                .rating(request.getRating())
+                .store(store)
+                .user(user)
+                .build();
+    }
+
+    public static StoreResponseDTO.ReviewResultDTO toReviewResultDTO(Review review) {
+        return StoreResponseDTO.ReviewResultDTO.builder()
+                .reviewId(review.getReviewId())
+                .createAt(review.getCreateAt())
                 .build();
     }
 }
