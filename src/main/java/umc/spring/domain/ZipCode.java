@@ -16,5 +16,5 @@ public class ZipCode {
     private Long zipCodeId;
 
     @Column(length = 10)
-    private String zipCode;
+    private String content;
 }
