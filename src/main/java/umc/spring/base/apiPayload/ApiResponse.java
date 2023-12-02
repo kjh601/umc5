@@ -1,12 +1,11 @@
-package umc.spring.apiPayload;
+package umc.spring.base.apiPayload;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import umc.spring.apiPayload.code.BaseCode;
-import umc.spring.apiPayload.code.status.SuccessStatus;
+import umc.spring.base.apiPayload.code.status.SuccessStatus;
 
 @Getter
 @AllArgsConstructor
