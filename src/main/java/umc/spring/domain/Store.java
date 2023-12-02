@@ -1,17 +1,23 @@
 package umc.spring.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.locationtech.jts.geom.Point;
+import umc.spring.domain.common.BaseEntity;
 import umc.spring.domain.enums.StoreStatus;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@DynamicInsert
+@DynamicUpdate
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class Store {
+public class Store extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +26,7 @@ public class Store {
     @Column(length = 50)
     private String name;
 
+    @Column(columnDefinition = "POINT")
     private Point coordinate;
 
     private String detailAddress;
@@ -28,12 +35,16 @@ public class Store {
     private String imgUrl;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'closed'")
     private StoreStatus status;
 
-    private Double rating;
+    @Builder.Default
+    @ColumnDefault("0.0")
+    private Double rating = 0.0;
 
-    private Integer rateCount;
+    @Builder.Default
+    @ColumnDefault("0")
+    private Integer rateCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
