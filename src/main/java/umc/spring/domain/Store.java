@@ -1,7 +1,6 @@
 package umc.spring.domain;
 
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.locationtech.jts.geom.Point;
@@ -34,16 +33,14 @@ public class Store extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String imgUrl;
 
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR(20) DEFAULT 'closed'")
-    private StoreStatus status;
+    private StoreStatus status = StoreStatus.CLOSED;
 
     @Builder.Default
-    @ColumnDefault("0.0")
     private Double rating = 0.0;
 
     @Builder.Default
-    @ColumnDefault("0")
     private Integer rateCount = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,4 +50,12 @@ public class Store extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "zip_code_id")
     private ZipCode zipCode;
+
+    public void updateStoreRate(Double newReviewRating){
+        Integer newStoreRateCount = this.getRateCount()+1;
+        Double newStoreRating = (this.getRating()*this.getRateCount()+newReviewRating)/newStoreRateCount;
+
+        this.rateCount = newStoreRateCount;
+        this.rating = newStoreRating;
+    }
 }
