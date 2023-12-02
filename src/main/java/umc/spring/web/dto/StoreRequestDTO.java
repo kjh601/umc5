@@ -15,4 +15,11 @@ public class StoreRequestDTO {
         private Long foodCategoryId;
         private Long zipCodeId;
     }
+
+    @Getter
+    public static class ReviewDTO {
+        private String contents;
+        private Double rating;
+        private Long userId;
+    }
 }
