@@ -16,8 +16,8 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
-    // 멤버 관련 응답
-    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
+    // 유저 관련 응답
+    USER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
 
     //예시,,,
@@ -30,7 +30,10 @@ public enum ErrorStatus implements BaseErrorCode {
     FOOD_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "FOOD_CATEGORY4011", "음식 카테고리가 없습니다."),
 
     // ZipCode 관련 응답
-    ZIP_CODE_NOT_FOUND(HttpStatus.NOT_FOUND, "ZIP_CODE4021","zip code가 없습니다.");
+    ZIP_CODE_NOT_FOUND(HttpStatus.NOT_FOUND, "ZIP_CODE4021","zip code가 없습니다."),
+
+    // 매장 관련 응답
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_CODE4031", "매장이 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
