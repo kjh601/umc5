@@ -33,7 +33,10 @@ public enum ErrorStatus implements BaseErrorCode {
     ZIP_CODE_NOT_FOUND(HttpStatus.NOT_FOUND, "ZIP_CODE4021","zip code가 없습니다."),
 
     // 매장 관련 응답
-    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_CODE4031", "매장이 없습니다.");
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_CODE4031", "매장이 없습니다."),
+
+    // 미션 관련 응답
+    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION_CODE4041", "미션이 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
