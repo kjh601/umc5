@@ -36,7 +36,10 @@ public enum ErrorStatus implements BaseErrorCode {
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "STORE_CODE4031", "매장이 없습니다."),
 
     // 미션 관련 응답
-    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION_CODE4041", "미션이 없습니다.");
+    MISSION_NOT_FOUND(HttpStatus.NOT_FOUND, "MISSION_CODE4041", "미션이 없습니다."),
+
+    // 페이지 관련 응답
+    INVALID_PAGE_NUMBER(HttpStatus.BAD_REQUEST, "PAGE_4051", "페이지 번호가 유효하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

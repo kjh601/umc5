@@ -16,6 +16,7 @@ import umc.spring.domain.Review;
 import umc.spring.domain.User;
 import umc.spring.service.UserService.UserCommandService;
 import umc.spring.service.UserService.UserQueryService;
+import umc.spring.validation.annotation.CheckPage;
 import umc.spring.web.dto.ReviewResponseDTO;
 import umc.spring.web.dto.UserRequestDTO;
 import umc.spring.web.dto.UserResponseDTO;
@@ -29,7 +30,6 @@ public class UserRestController {
 
     private final UserCommandService userCommandService;
     private final UserQueryService userQueryService;
-
     @PostMapping("/")
     public ApiResponse<UserResponseDTO.JoinResultDTO> join(@RequestBody @Valid UserRequestDTO.JoinDto request){
         User user = userCommandService.joinUser(request);
@@ -46,9 +46,12 @@ public class UserRestController {
     })
     @Parameters({
             @Parameter(name = "userId", description = "유저의 아이디, path variable 입니다!"),
-            @Parameter(name = "page", description = "페이지 번호, 0번이 1번 입니다.")
+            @Parameter(name = "page", description = "페이지 번호, 1번 부터 시작합니다.")
     })
-    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@PathVariable(name = "userId") Long userId, @RequestParam(name = "page") Integer page){
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(
+            @PathVariable(name = "userId") Long userId,
+            @RequestParam(name = "page") @CheckPage Integer page){
+
         Page<Review> reviewPage = userQueryService.getReviewList(userId, page);
         return ApiResponse.onSuccess(ReviewConverter.toReviewPreviewListDTO(reviewPage));
     }
