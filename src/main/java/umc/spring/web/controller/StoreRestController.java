@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import umc.spring.base.apiPayload.ApiResponse;
+import umc.spring.converter.ReviewConverter;
 import umc.spring.converter.StoreConverter;
 import umc.spring.domain.Review;
 import umc.spring.domain.Store;
 import umc.spring.service.StoreService.StoreCommandService;
 import umc.spring.service.StoreService.StoreQueryService;
+import umc.spring.web.dto.ReviewResponseDTO;
 import umc.spring.web.dto.StoreRequestDTO;
 import umc.spring.web.dto.StoreResponseDTO;
 
@@ -35,9 +37,9 @@ public class StoreRestController {
     }
 
     @PostMapping("/{storeId}/review")
-    public ApiResponse<StoreResponseDTO.ReviewResultDTO> review(@PathVariable("storeId") Long storeId, @RequestBody @Valid StoreRequestDTO.ReviewDTO request) {
+    public ApiResponse<ReviewResponseDTO.ReviewResultDTO> review(@PathVariable("storeId") Long storeId, @RequestBody @Valid StoreRequestDTO.ReviewDTO request) {
         Review review = storeCommandService.reviewStore(request, storeId);
-        return ApiResponse.onSuccess(StoreConverter.toReviewResultDTO(review));
+        return ApiResponse.onSuccess(ReviewConverter.toReviewResultDTO(review));
     }
 
     @GetMapping("/{storeId}/reviews")
@@ -51,8 +53,8 @@ public class StoreRestController {
     @Parameters({
             @Parameter(name = "storeId", description = "가게의 아이디, path variable 입니다!"), @Parameter(name = "page", description = "페이지 번호, 0번이 1 페이지 입니다.")
     })
-    public ApiResponse<StoreResponseDTO.ReviewPreviewListDTO> getReviewList(@PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page){
+    public ApiResponse<ReviewResponseDTO.ReviewPreviewListDTO> getReviewList(@PathVariable(name = "storeId") Long storeId, @RequestParam(name = "page") Integer page){
         Page<Review> reviewList = storeQueryService.getReviewList(storeId, page);
-        return ApiResponse.onSuccess(StoreConverter.toReviewPreviewListDTO(reviewList));
+        return ApiResponse.onSuccess(ReviewConverter.toReviewPreviewListDTO(reviewList));
     }
 }
