@@ -9,6 +9,7 @@ import umc.spring.base.apiPayload.code.status.ErrorStatus;
 import umc.spring.base.apiPayload.exception.GeneralException;
 import umc.spring.base.apiPayload.exception.handler.FoodCategoryHandler;
 import umc.spring.base.apiPayload.exception.handler.ZipCodeHandler;
+import umc.spring.converter.ReviewConverter;
 import umc.spring.converter.StoreConverter;
 import umc.spring.domain.*;
 import umc.spring.repository.*;
@@ -44,7 +45,7 @@ public class StoreCommandServiceImpl implements StoreCommandService {
 
         store.updateStoreRate(request.getRating());
 
-        Review newReview = StoreConverter.toReview(request, store, user);
+        Review newReview = ReviewConverter.toReview(request, store, user);
         return reviewRepository.save(newReview);
     }
 }
